@@ -2,75 +2,67 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>櫻花小舖 Sakura Shop | 數位代購旗艦</title>
+    <title>櫻花小舖 | 專業數位旗艦商城</title>
     <style>
-        :root { --main: #6c5ce7; --accent: #ff5f96; --bg: #f4f4f4; --dark: #2d3436; }
-        * { box-sizing: border-box; font-family: '微軟正黑體', sans-serif; }
-        body { background: var(--bg); margin: 0; }
-
-        /* 導航 */
-        .top-bar { background: #333; color: white; padding: 5px 10%; font-size: 12px; display: flex; justify-content: space-between; }
-        .header { background: white; padding: 20px 10%; display: flex; justify-content: space-between; align-items: center; }
-        .nav-menu { background: var(--main); padding: 10px 10%; color: white; display: flex; gap: 20px; }
+        :root { --main: #6c5ce7; --accent: #ff5f96; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* 輪播區 */
-        .banner { background: var(--dark); height: 300px; margin: 20px 10%; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px; font-size: 24px; }
+        /* 導覽列 */
+        .navbar { background: rgba(15, 23, 42, 0.9); padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155; }
+        
+        /* Banner 區 */
+        .hero { height: 300px; background: linear-gradient(135deg, #4f46e5, #7c3aed); margin: 20px 10%; border-radius: 20px; display: flex; align-items: center; padding: 0 50px; }
         
         /* 商品網格 */
-        .container { padding: 0 10% 50px; }
+        .section { padding: 50px 10%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: center; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .price { color: var(--accent); font-weight: bold; font-size: 18px; margin: 10px 0; }
-        button { background: var(--main); color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+        .card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid #334155; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--main); box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2); }
         
-        /* 頁尾 */
-        footer { background: #e0e0e0; padding: 30px 10%; text-align: center; color: #666; font-size: 14px; }
+        .price { color: var(--accent); font-size: 20px; font-weight: bold; margin: 10px 0; }
+        button { background: var(--main); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background: var(--accent); }
+        
+        .tag { background: var(--accent); font-size: 12px; padding: 4px 8px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="top-bar"><span>官方信箱: support@sakurashop.tw</span><span>服務時間: 17:00-21:00</span></div>
+<nav class="navbar">
+    <div style="font-size: 24px; font-weight: bold;">🌸 櫻花小舖</div>
+    <div>熱門代購 | 遊戲儲值 | 影音會員 | 其它</div>
+</nav>
 
-<header class="header">
-    <div style="font-size: 28px; font-weight: bold; color: var(--main);">🌸 櫻花小舖</div>
-    <div onclick="adminLogin()" style="cursor:pointer">管理員後台</div>
-</header>
-
-<div class="nav-menu">
-    <span>熱門代購</span><span>遊戲儲值</span><span>影音工具</span><span>禮物卡</span>
+<div class="hero">
+    <div>
+        <h1 style="font-size: 40px;">2026 全球數位代購新標竿</h1>
+        <p>全自動單號生成，24小時客服，保證不鎖號。</p>
+    </div>
 </div>
 
-<div class="banner">【專業輪播活動區】</div>
-
-<div class="container">
-    <h2 style="margin-bottom: 20px;">全店商品</h2>
+<div class="section">
+    <h2>🔥 今日熱門推薦</h2>
     <div class="grid" id="productGrid"></div>
 </div>
 
-<footer>
-    <p>行號：櫻花小舖工作室 | 統一編號：95017564</p>
-    <p>© 2026 Sakura Shop | 專注數位產品安全代購</p>
-</footer>
-
 <script>
     const products = [
-        { name: "Minecraft 官方代購", price: "NT$ 800" },
-        { name: "Discord Nitro 贈禮", price: "NT$ 150" },
-        { name: "Steam 1000 點數", price: "NT$ 1040" },
-        { name: "VALORANT 代儲", price: "NT$ 280" },
-        { name: "YouTube Premium", price: "NT$ 90" },
-        { name: "Spotify 個人方案", price: "NT$ 120" },
-        { name: "崩壞：星穹鐵道代儲", price: "NT$ 300" },
-        { name: "絕區零 UID 代儲", price: "NT$ 250" }
+        { name: "HamiTV 影視會員", price: "NT$ 180", tag: "熱賣" },
+        { name: "Discord Nitro 贈禮", price: "NT$ 150", tag: "優惠" },
+        { name: "Minecraft 正版帳號", price: "NT$ 800", tag: "保固" },
+        { name: "Valorant VP 代儲", price: "NT$ 280", tag: "秒到" },
+        { name: "YouTube Premium", price: "NT$ 90", tag: "極速" },
+        { name: "Steam 點數卡 1000", price: "NT$ 1050", tag: "熱門" },
+        { name: "Netflix 4K高級", price: "NT$ 120", tag: "現貨" },
+        { name: "崩鐵/原神儲值", price: "NT$ 3000", tag: "專業" }
     ];
 
     function render() {
-        document.getElementById('productGrid').innerHTML = products.map((p, idx) => `
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = products.map(p => `
             <div class="card">
-                <div style="height:120px; background:#f9f9f9; margin-bottom:10px;">商品預覽圖</div>
-                <div>${p.name}</div>
+                <span class="tag">${p.tag}</span>
+                <h3 style="margin-top:15px;">${p.name}</h3>
                 <div class="price">${p.price}</div>
                 <button onclick="buy('${p.name}')">立即購買</button>
             </div>
@@ -78,26 +70,9 @@
     }
 
     function buy(name) {
-        const orderId = "SK-" + Math.floor(100000 + Math.random() * 899999);
-        // 儲存至本地瀏覽器
-        let orders = JSON.parse(localStorage.getItem('myOrders') || '[]');
-        orders.push({ id: orderId, product: name, time: new Date().toLocaleString() });
-        localStorage.setItem('myOrders', JSON.stringify(orders));
-        
-        alert("下單成功！您的專屬編碼為："+orderId+"\n已自動複製，請提供給客服對帳。");
+        const orderId = "SK-" + Math.floor(Math.random() * 900000);
         navigator.clipboard.writeText(orderId);
-    }
-
-    function adminLogin() {
-        const pass = prompt("請輸入管理員密碼");
-        if(pass === "1234") {
-            const orders = JSON.parse(localStorage.getItem('myOrders') || '[]');
-            let report = "後台訂單列表：\n";
-            orders.forEach(o => report += `${o.id} | ${o.product} | ${o.time}\n`);
-            alert(report);
-        } else {
-            alert("密碼錯誤");
-        }
+        alert(`下單成功！您的訂單編號: ${orderId}\n已複製，請前往 Discord 客服確認。`);
     }
 
     render();
