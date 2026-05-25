@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>櫻花小舖 Sakura Shop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Noto Sans TC',sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    color:#222;
+}
+
+header{
+    background:white;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+}
+
+.logo{
+    font-size:32px;
+    font-weight:700;
+    color:#ff5f96;
+}
+
+.search-box{
+    display:flex;
+    width:55%;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    outline:none;
+    border-radius:10px 0 0 10px;
+}
+
+.search-box button{
+    padding:12px 18px;
+    border:none;
+    background:#ff78a8;
+    color:white;
+    border-radius:0 10px 10px 0;
+}
+
+.banner{
+    width:92%;
+    margin:20px auto;
+    height:220px;
+    border-radius:24px;
+    background:
+    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
+    url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.banner h1{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.banner p{
+    font-size:18px;
+}
+
+.section-title{
+    background:#6fd46f;
+    color:white;
+    text-align:center;
+    padding:16px;
+    margin:30px auto;
+    width:92%;
+    border-radius:12px;
+    font-size:28px;
+}
+
+.products{
+    width:92%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,0.08);
+    transition:0.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:18px;
+}
+
+.card h2{
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#ff4f8b;
+    font-size:28px;
+    font-weight:700;
+    margin:10px 0;
+}
+
+.buy-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    background:#8ea7ff;
+    color:white;
+    border-radius:12px;
+    font-size:18px;
+    margin-top:10px;
+}
+
+.contact{
+    width:92%;
+    margin:30px auto;
+    background:white;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,0.08);
+}
+
+.contact h2{
+    color:#ff5f96;
+    margin-bottom:16px;
+}
+
+.contact p{
+    margin:10px 0;
+    color:#555;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    padding:14px 0;
+    box-shadow:0 -3px 12px rgba(0,0,0,0.08);
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#444;
+    font-size:15px;
+    text-align:center;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#777;
+    margin-bottom:80px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌸 櫻花小舖</div>
+
+    <div class="search-box">
+        <input type="text" placeholder="搜尋商品">
+        <button>搜尋</button>
+    </div>
+</header>
+
+<div class="banner">
+    <h1>Sakura Shop</h1>
+    <p>Steam 蒸氣卡｜VALORANT 台服｜Discord Nitro</p>
+</div>
+
+<div class="section-title">
+    本店精選
+</div>
+
+<div class="products">
+
+    <!-- Steam -->
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
+
+        <div class="card-content">
+            <h2>Steam 蒸氣卡</h2>
+
+            <div class="price">
+                NT$100 起
+            </div>
+
+            <p>Steam Wallet 點數卡</p>
+
+            <button class="buy-btn">
+                加入購物車
+            </button>
+        </div>
+    </div>
+
+    <!-- Valorant -->
+    <div class="card">
+        <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg">
+
+        <div class="card-content">
+            <h2>VALORANT 台服</h2>
+
+            <div class="price">
+                NT$170 起
+            </div>
+
+            <p>特戰英豪 VP 點數</p>
+
+            <button class="buy-btn">
+                加入購物車
+            </button>
+        </div>
+    </div>
+
+    <!-- Nitro Month -->
+    <div class="card">
+        <img src="https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg">
+
+        <div class="card-content">
+            <h2>Nitro 禮物（月）</h2>
+
+            <div class="price">
+                NT$150
+            </div>
+
+            <p>Discord Nitro Monthly Gift</p>
+
+            <button class="buy-btn">
+                加入購物車
+            </button>
+        </div>
+    </div>
+
+    <!-- Nitro Year -->
+    <div class="card">
+        <img src="https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg">
+
+        <div class="card-content">
+            <h2>Nitro 禮物（年）</h2>
+
+            <div class="price">
+                NT$1450
+            </div>
+
+            <p>Discord Nitro Yearly Gift</p>
+
+            <button class="buy-btn">
+                加入購物車
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="contact">
+
+    <h2>📧 聯絡資訊</h2>
+
+    <p>Email：yourmail@example.com</p>
+
+    <p>
+        Discord：
+        <a href="https://discord.gg/你的邀請碼" target="_blank">
+            點我加入官方 Discord
+        </a>
+    </p>
+
+    <p>
+        本站商品皆為數位商品，
+        付款後將由客服協助發送。
+    </p>
+
+</div>
+
+<footer>
+    © 2026 櫻花小舖 Sakura Shop
+</footer>
+
+<div class="bottom-nav">
+
+    <a href="#">
+        🏪<br>
+        查看商品
+    </a>
+
+    <a href="https://discord.gg/你的邀請碼" target="_blank">
+        🎧<br>
+        聯絡客服
+    </a>
+
+</div>
+
+</body>
+</html>
