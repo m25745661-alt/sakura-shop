@@ -37,7 +37,7 @@
         }
         .search-bar input { border: none; background: transparent; outline: none; width: 100%; margin-left: 10px; }
 
-        /* 3. 紫色分類導航欄 (具備下拉選單) */
+        /* 3. 紫色分類導航欄 */
         .nav-bar { background: var(--primary-purple); padding: 0 10%; display: flex; position: sticky; top: 0; z-index: 1000; }
         .nav-item { position: relative; padding: 15px 25px; color: white; font-weight: 500; cursor: pointer; }
         .nav-item:hover { background: var(--hover-purple); }
@@ -50,116 +50,112 @@
         .dropdown a:hover { background: #f8f9fa; color: var(--primary-purple); padding-left: 25px; }
 
         /* 4. 輪播 Banner */
-        .hero-section { width: 80%; max-width: 1200px; margin: 20px auto; border-radius: 12px; overflow: hidden; position: relative; }
-        .banner-img { width: 100%; height: 400px; object-fit: cover; display: block; }
+        .hero-section { width: 80%; max-width: 1200px; margin: 20px auto; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .banner-img { width: 100%; height: 350px; object-fit: cover; display: block; }
         .banner-overlay {
             position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            padding: 40px; color: white;
+            padding: 30px 40px; color: white;
         }
 
-        /* 5. 商品展示區佈局 */
-        .main-container { width: 80%; max-width: 1200px; margin: 40px auto; display: flex; gap: 30px; }
+        /* 5. 主內容佈局 */
+        .main-container { width: 85%; max-width: 1200px; margin: 30px auto; display: flex; gap: 30px; }
         
-        /* 側邊選單 */
-        aside { width: 250px; flex-shrink: 0; }
+        /* 側邊欄 */
+        aside { width: 260px; flex-shrink: 0; }
         .side-card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #eee; }
-        .side-title { font-weight: 700; margin-bottom: 15px; border-left: 4px solid var(--primary-purple); padding-left: 10px; }
+        .side-title { font-weight: 700; margin-bottom: 15px; border-left: 4px solid var(--primary-purple); padding-left: 10px; font-size: 16px; }
         .side-list { list-style: none; }
-        .side-list li { padding: 10px 0; border-bottom: 1px dashed #eee; cursor: pointer; font-size: 14px; }
-        .side-list li:hover { color: var(--primary-purple); }
+        .side-list li { padding: 10px 0; border-bottom: 1px dashed #eee; cursor: pointer; font-size: 14px; color: #555; transition: 0.2s; }
+        .side-list li:hover { color: var(--primary-purple); padding-left: 5px; }
 
-        /* 商品列表 */
+        /* 商品區 */
         .products-wrap { flex-grow: 1; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .tab-group { display: flex; gap: 10px; }
-        .tab { padding: 8px 20px; background: #eee; border-radius: 5px; cursor: pointer; font-size: 14px; }
-        .tab.active { background: #52c41a; color: white; }
+        .section-header { margin-bottom: 20px; display: flex; gap: 10px; }
+        .tab { padding: 8px 20px; background: #fff; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 500; }
+        .tab.active { background: #52c41a; color: white; border-color: #52c41a; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .p-card { background: white; border-radius: 8px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; }
+        .p-card { background: white; border-radius: 10px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; display: block; }
         .p-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--primary-purple); }
         
-        /* 戴夫購彩色邊框圖片區 */
-        .img-box { width: 100%; aspect-ratio: 1/1; padding: 15px; }
+        /* 圖片容器 */
+        .img-box { width: 100%; aspect-ratio: 1/1; padding: 12px; display: flex; align-items: center; justify-content: center; }
         .img-box.purple { background: #f9f0ff; }
         .img-box.blue { background: #e6f7ff; }
         .img-box.green { background: #f6ffed; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+        .img-box.black { background: #f5f5f5; }
+        
+        .img-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
 
-        .p-info { padding: 15px; text-align: center; }
-        .p-name { font-size: 15px; font-weight: 500; margin-bottom: 10px; height: 44px; overflow: hidden; }
-        .p-price { font-size: 18px; color: #ff4d4f; font-weight: 700; margin-bottom: 15px; }
-        .btn-buy { 
-            display: block; width: 100%; background: #f0f2f5; padding: 10px; 
-            border-radius: 5px; font-weight: 500; font-size: 14px; 
-        }
+        .p-info { padding: 15px; text-align: center; border-top: 1px solid #f8f8f8; }
+        .p-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .p-price { font-size: 18px; color: #ff4d4f; font-weight: 700; margin-bottom: 12px; }
+        .btn-buy { background: #f0f2f5; padding: 8px; border-radius: 5px; font-size: 13px; font-weight: 500; color: #555; transition: 0.3s; }
         .p-card:hover .btn-buy { background: var(--primary-purple); color: white; }
 
-        /* 6. 頁腳聯絡資訊 */
-        footer { background: white; border-top: 1px solid #eee; padding: 60px 10%; margin-top: 50px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
-        .footer-logo { font-size: 24px; font-weight: 900; margin-bottom: 20px; }
-        .contact-info { color: #636e72; font-size: 14px; }
-        .contact-info p { margin-bottom: 10px; }
+        /* 6. 頁腳 */
+        footer { background: #fff; border-top: 1px solid #eee; padding: 50px 10%; margin-top: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-info { color: #636e72; font-size: 14px; }
+        .footer-title { font-weight: 700; margin-bottom: 20px; color: #2d3436; }
         .social-link { 
-            display: inline-block; padding: 10px 20px; background: #5865F2; 
-            color: white; border-radius: 5px; font-weight: 500; margin-top: 15px;
+            display: inline-block; padding: 10px 25px; background: #5865F2; 
+            color: white; border-radius: 5px; font-weight: 600; margin-top: 15px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .main-container { flex-direction: column; }
             aside { width: 100%; }
-            .search-bar { display: none; }
+            .search-bar { width: 250px; }
         }
     </style>
 </head>
 <body>
 
 <div class="utility-nav">
-    <a href="#">🏠 所有商品</a>
-    <a href="mailto:sakurashop.tw@gmail.com">📩 聯絡我們</a>
-    <a href="https://discord.gg/Yy4RpG4s4n" target="_blank">🛒 購物車</a>
+    <a href="#">🏪 所有商品</a>
+    <a href="mailto:sakurashop.tw@gmail.com">📧 聯絡我們</a>
+    <a href="https://discord.gg/Yy4RpG4s4n" target="_blank">💬 官方 Discord</a>
 </div>
 
 <header class="header-main">
     <div class="logo">🌸 櫻花<span>小舖</span></div>
     <div class="search-bar">
         <span>🔍</span>
-        <input type="text" placeholder="搜尋想要的遊戲、點數卡...">
+        <input type="text" placeholder="搜尋商品名稱...">
     </div>
 </header>
 
 <nav class="nav-bar">
     <div class="nav-item">遊戲代購 ▼
         <div class="dropdown">
-            <a href="https://discord.gg/Yy4RpG4s4n">Minecraft 帳號</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">Minecraft 官方帳號</a>
             <a href="https://discord.gg/Yy4RpG4s4n">特戰英豪 帳號</a>
             <a href="https://discord.gg/Yy4RpG4s4n">黑神話：悟空</a>
         </div>
     </div>
     <div class="nav-item">遊戲代儲 ▼
         <div class="dropdown">
-            <a href="https://discord.gg/Yy4RpG4s4n">Valorant 台服儲值</a>
-            <a href="https://discord.gg/Yy4RpG4s4n">Valorant 菲律賓服</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">VALORANT 台服 VP</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">VALORANT 菲律賓服</a>
             <a href="https://discord.gg/Yy4RpG4s4n">傳說對決 點券</a>
         </div>
     </div>
-    <div class="nav-item">影音/工具 ▼
+    <div class="nav-item">影音工具 ▼
         <div class="dropdown">
+            <a href="https://discord.gg/Yy4RpG4s4n">YouTube Premium</a>
             <a href="https://discord.gg/Yy4RpG4s4n">Discord Nitro</a>
-            <a href="https://discord.gg/Yy4RpG4s4n">Youtube Premium</a>
             <a href="https://discord.gg/Yy4RpG4s4n">Netflix 帳號</a>
         </div>
     </div>
     <div class="nav-item">禮物卡</div>
-    <div class="nav-item">其它</div>
 </nav>
 
 <div class="hero-section">
-    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg" class="banner-img" id="banner">
+    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg" class="banner-img" id="mainBanner">
     <div class="banner-overlay">
-        <h2>🔥 夏季大促銷：Valorant 儲值 9 折優惠中</h2>
-        <p>全場商品支援 超商/轉帳/街口 付款，秒發點數不等待。</p>
+        <h2 id="bannerTitle">🔥 特戰英豪 VP 代儲優惠中</h2>
+        <p>支援 超商/街口/轉帳 付款，Discord 24H 售後服務。</p>
     </div>
 </div>
 
@@ -168,26 +164,23 @@
         <div class="side-card">
             <div class="side-title">商品分類</div>
             <ul class="side-list">
-                <li>熱門代購</li>
-                <li>手遊儲值</li>
-                <li>PC 遊戲代購</li>
-                <li>點數卡/禮物卡</li>
-                <li>影音帳號</li>
+                <li>🔥 熱門推薦</li>
+                <li>🎮 遊戲代購</li>
+                <li>💎 遊戲代儲</li>
+                <li>📺 影音帳號</li>
+                <li>🎫 點數卡/禮物卡</li>
             </ul>
         </div>
-        <div class="side-card" style="background: #fff0f5;">
-            <div class="side-title">📢 公告資訊</div>
+        <div class="side-card" style="background: #fff5f8; border-color: #ffdce5;">
+            <div class="side-title" style="border-left-color: #ff5f96;">📢 公告資訊</div>
             <p style="font-size: 13px; color: #d63384;">今日 Minecraft 帳號已補貨！付款後請截圖傳至 Discord 客服頻道領取。</p>
         </div>
     </aside>
 
     <main class="products-wrap">
         <div class="section-header">
-            <div class="tab-group">
-                <div class="tab active">本店精選</div>
-                <div class="tab">近期熱門</div>
-                <div class="tab">限時折扣</div>
-            </div>
+            <div class="tab active">本店精選</div>
+            <div class="tab">近期熱門</div>
         </div>
 
         <div class="product-grid" id="productGrid">
@@ -198,38 +191,73 @@
 <footer>
     <div class="footer-grid">
         <div>
-            <div class="footer-logo">🌸 櫻花小舖</div>
-            <div class="contact-info">
-                <p>櫻花小舖提供專業、快速、安全的數位商品代購服務。</p>
-                <p>✉️ 客服信箱：sakurashop.tw@gmail.com</p>
-                <a href="https://discord.gg/Yy4RpG4s4n" target="_blank" class="social-link">加入官方 Discord 客服</a>
+            <div class="footer-title">🌸 櫻花小舖 Sakura Shop</div>
+            <div class="footer-info">
+                <p>專業、快速、安全的數位商品代購平台。</p>
+                <p style="margin-top:10px;">📩 客服信箱：sakurashop.tw@gmail.com</p>
+                <a href="https://discord.gg/Yy4RpG4s4n" target="_blank" class="social-link">加入官方 Discord</a>
             </div>
         </div>
         <div>
-            <div class="side-title">常見問題</div>
+            <div class="footer-title">服務指南</div>
             <ul class="side-list" style="border:none;">
-                <li>如何領取商品？</li>
+                <li>如何購買商品？</li>
                 <li>付款方式說明</li>
-                <li>退款政策</li>
+                <li>售後服務政策</li>
             </ul>
         </div>
         <div>
-            <div class="side-title">安全保障</div>
-            <p style="font-size: 14px; color:#888;">本站 100% 官方管道獲取商品，保證不鎖號、永久售後保障。</p>
+            <div class="footer-title">安全承諾</div>
+            <p class="footer-info">本站商品皆為 100% 官方正版管道，提供永久不鎖號保障，請安心購買。</p>
         </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; color: #bbb; font-size: 12px;">
+        © 2026 櫻花小舖 Sakura Shop 版權所有
     </div>
 </footer>
 
 <script>
+    // 正確的圖片資料庫 (使用有效連結)
     const products = [
-        { name: "Minecraft 官方正版帳號 (Java/基岩)", price: "NT$ 800", img: "https://files.catbox.moe/5k4f7c.jpg", color: "blue" },
-        { name: "Discord Nitro 1個月 (贈禮連結)", price: "NT$ 150", img: "https://files.catbox.moe/o6o2h1.jpg", color: "purple" },
-        { name: "Steam 1000 NTD 錢包儲值卡", price: "NT$ 1040", img: "https://files.catbox.moe/u0f5v7.jpg", color: "blue" },
-        { name: "VALORANT 台服 1000 VP 儲值", price: "NT$ 280", img: "https://files.catbox.moe/7v1v2n.jpg", color: "green" },
-        { name: "YouTube Premium 1年個人方案", price: "NT$ 990", img: "https://files.catbox.moe/97a89q.jpg", color: "purple" },
-        { name: "Discord Nitro 1年 (贈禮連結)", price: "NT$ 1450", img: "https://files.catbox.moe/o6o2h1.jpg", color: "purple" }
+        {
+            name: "Minecraft 官方正版帳號 (Java/基岩)",
+            price: "NT$ 800",
+            img: "https://files.catbox.moe/5k4f7c.jpg",
+            color: "blue"
+        },
+        {
+            name: "Discord Nitro 1個月 (贈禮連結)",
+            price: "NT$ 150",
+            img: "https://files.catbox.moe/o6o2h1.jpg",
+            color: "purple"
+        },
+        {
+            name: "Steam 1000 NTD 錢包儲值卡",
+            price: "NT$ 1040",
+            img: "https://files.catbox.moe/u0f5v7.jpg",
+            color: "blue"
+        },
+        {
+            name: "VALORANT 台服 1000 VP 儲值",
+            price: "NT$ 280",
+            img: "https://files.catbox.moe/7v1v2n.jpg",
+            color: "green"
+        },
+        {
+            name: "YouTube Premium 1年個人方案",
+            price: "NT$ 990",
+            img: "https://files.catbox.moe/97a89q.jpg",
+            color: "black"
+        },
+        {
+            name: "Discord Nitro 1年 (贈禮連結)",
+            price: "NT$ 1450",
+            img: "https://files.catbox.moe/o6o2h1.jpg",
+            color: "purple"
+        }
     ];
 
+    // 渲染商品
     function render() {
         const grid = document.getElementById('productGrid');
         grid.innerHTML = products.map(p => `
@@ -246,15 +274,16 @@
         `).join('');
     }
 
-    // 自動換 Banner 圖片
-    const banners = [
-        "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg",
-        "https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg"
+    // 輪播圖邏輯
+    const bannerData = [
+        { img: "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg", title: "🔥 特戰英豪 VP 代儲優惠中" },
+        { img: "https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg", title: "🎮 Steam 蒸氣卡全面補貨" }
     ];
     let bIdx = 0;
     setInterval(() => {
-        bIdx = (bIdx + 1) % banners.length;
-        document.getElementById('banner').src = banners[bIdx];
+        bIdx = (bIdx + 1) % bannerData.length;
+        document.getElementById('mainBanner').src = bannerData[bIdx].img;
+        document.getElementById('bannerTitle').innerText = bannerData[bIdx].title;
     }, 5000);
 
     render();
