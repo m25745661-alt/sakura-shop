@@ -1,81 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>櫻花小舖 | 專業數位旗艦商城</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakura Shop | 專業數位儲值商城</title>
     <style>
-        :root { --main: #6c5ce7; --accent: #ff5f96; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; }
+        :root { --primary: #ff7979; --dark: #2f3542; --light: #f4f4f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; color: #333; }
         
         /* 導覽列 */
-        .navbar { background: rgba(15, 23, 42, 0.9); padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155; }
+        header { background: var(--dark); color: white; padding: 20px; text-align: center; }
         
-        /* Banner 區 */
-        .hero { height: 300px; background: linear-gradient(135deg, #4f46e5, #7c3aed); margin: 20px 10%; border-radius: 20px; display: flex; align-items: center; padding: 0 50px; }
+        /* 商品區塊 */
+        .container { max-width: 1000px; margin: 20px auto; padding: 20px; }
+        .filter-buttons { text-align: center; margin-bottom: 20px; }
+        .filter-buttons button { padding: 10px 20px; margin: 5px; cursor: pointer; border: none; border-radius: 5px; background: #ddd; }
         
-        /* 商品網格 */
-        .section { padding: 50px 10%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid #334155; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--main); box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .price { color: #eb4d4b; font-size: 1.5rem; font-weight: bold; margin: 10px 0; }
         
-        .price { color: var(--accent); font-size: 20px; font-weight: bold; margin: 10px 0; }
-        button { background: var(--main); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        button:hover { background: var(--accent); }
+        /* 懸浮按鈕 */
+        .float-btn { position: fixed; bottom: 30px; right: 30px; background: #2f3542; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; }
         
-        .tag { background: var(--accent); font-size: 12px; padding: 4px 8px; border-radius: 4px; }
+        /* 信任區塊 */
+        .trust-box { background: #ffeaa7; padding: 15px; border-radius: 10px; margin-top: 30px; border: 2px dashed #fdcb6e; }
     </style>
 </head>
 <body>
 
-<nav class="navbar">
-    <div style="font-size: 24px; font-weight: bold;">🌸 櫻花小舖</div>
-    <div>熱門代購 | 遊戲儲值 | 影音會員 | 其它</div>
-</nav>
+<header>
+    <h1>Sakura Shop 櫻花店</h1>
+</header>
 
-<div class="hero">
-    <div>
-        <h1 style="font-size: 40px;">2026 全球數位代購新標竿</h1>
-        <p>全自動單號生成，24小時客服，保證不鎖號。</p>
+<div class="container">
+    <div class="filter-buttons">
+        <button onclick="filterCategory('all')">全部商品</button>
+        <button onclick="filterCategory('game')">遊戲儲值</button>
+        <button onclick="filterCategory('streaming')">影音訂閱</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+        <div class="card" data-category="game">
+            <h3>熱門手遊點數</h3>
+            <div class="price">NT$ 500</div>
+            <a href="mailto:sakurashop.tw@gmail.com" class="btn">立即購買</a>
+        </div>
+        <div class="card" data-category="streaming">
+            <h3>Netflix 會員</h3>
+            <div class="price">NT$ 300</div>
+            <a href="mailto:sakurashop.tw@gmail.com" class="btn">立即購買</a>
+        </div>
+    </div>
+
+    <div class="trust-box">
+        <p>💡 <strong>購買提示：</strong> 我們提供 24 小時快速發貨。結帳時請務必備註你的專屬識別碼：<strong style="color: #d63031;">Yy4RpG4s4n</strong>，系統將優先處理您的訂單。</p>
     </div>
 </div>
 
-<div class="section">
-    <h2>🔥 今日熱門推薦</h2>
-    <div class="grid" id="productGrid"></div>
-</div>
+<a href="mailto:sakurashop.tw@gmail.com" class="float-btn">✉️ 聯絡客服</a>
 
 <script>
-    const products = [
-        { name: "HamiTV 影視會員", price: "NT$ 180", tag: "熱賣" },
-        { name: "Discord Nitro 贈禮", price: "NT$ 150", tag: "優惠" },
-        { name: "Minecraft 正版帳號", price: "NT$ 800", tag: "保固" },
-        { name: "Valorant VP 代儲", price: "NT$ 280", tag: "秒到" },
-        { name: "YouTube Premium", price: "NT$ 90", tag: "極速" },
-        { name: "Steam 點數卡 1000", price: "NT$ 1050", tag: "熱門" },
-        { name: "Netflix 4K高級", price: "NT$ 120", tag: "現貨" },
-        { name: "崩鐵/原神儲值", price: "NT$ 3000", tag: "專業" }
-    ];
-
-    function render() {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = products.map(p => `
-            <div class="card">
-                <span class="tag">${p.tag}</span>
-                <h3 style="margin-top:15px;">${p.name}</h3>
-                <div class="price">${p.price}</div>
-                <button onclick="buy('${p.name}')">立即購買</button>
-            </div>
-        `).join('');
+    function filterCategory(category) {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
-
-    function buy(name) {
-        const orderId = "SK-" + Math.floor(Math.random() * 900000);
-        navigator.clipboard.writeText(orderId);
-        alert(`下單成功！您的訂單編號: ${orderId}\n已複製，請前往 Discord 客服確認。`);
-    }
-
-    render();
 </script>
+
 </body>
 </html>
