@@ -3,141 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>櫻花小舖 Sakura Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>櫻花小舖 Sakura Shop | 專業數位商品代購</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 保留你原本的 CSS，並修正圖片失效問題 */
-        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans TC',sans-serif; }
-        body{ background:#f4f4f4; color:#222; padding-bottom: 80px; }
-        header{ background:white; padding:18px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
-        .logo{ font-size:24px; font-weight:700; color:#ff5f96; cursor:pointer; }
-        .search-box{ display:flex; width:50%; }
-        .search-box input{ width:100%; padding:10px; border:1px solid #ddd; outline:none; border-radius:10px 0 0 10px; }
-        .search-box button{ padding:10px 18px; border:none; background:#ff78a8; color:white; border-radius:0 10px 10px 0; cursor:pointer; }
-        
-        .banner{ width:92%; margin:20px auto; height:180px; border-radius:24px; background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; }
-        .section-title{ background:#6fd46f; color:white; text-align:center; padding:12px; margin:20px auto; width:92%; border-radius:12px; font-size:20px; }
+        :root {
+            --main-purple: #6c5ce7;
+            --main-green: #52c41a;
+            --bg-gray: #f8f9fa;
+        }
 
-        .products{ width:92%; margin:auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:15px; }
-        .card{ background:white; border-radius:18px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.05); transition:0.3s; }
-        .card:hover{ transform:translateY(-5px); }
-        .card img{ width:100%; height:150px; object-fit:cover; background: #eee; }
-        .card-content{ padding:15px; }
-        .card h2{ font-size:18px; margin-bottom:5px; }
-        .price{ color:#ff4f8b; font-size:22px; font-weight:700; margin:5px 0; }
-        .buy-btn{ width:100%; padding:12px; border:none; background:#8ea7ff; color:white; border-radius:10px; font-size:16px; cursor:pointer; transition: 0.2s; }
-        .buy-btn:active { background: #6b84ff; transform: scale(0.95); }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans TC',sans-serif; }
+        body { background: white; color: #333; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
 
-        .contact{ width:92%; margin:30px auto; background:white; padding:20px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.05); }
-        .bottom-nav{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:12px 0; box-shadow:0 -3px 10px rgba(0,0,0,0.05); }
-        .bottom-nav a { text-decoration:none; color:#444; font-size:13px; text-align:center; }
+        /* 頂部功能選單 */
+        .top-nav {
+            display: flex; justify-content: flex-end; padding: 10px 10%;
+            gap: 25px; font-size: 13px; color: #777; border-bottom: 1px solid #f0f0f0;
+        }
+        .top-nav a:hover { color: var(--main-purple); }
+
+        /* 主導航 */
+        .header-main {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 10%;
+        }
+        .logo { font-size: 28px; font-weight: 900; color: #222; cursor: pointer; }
+        .search-bar {
+            background: #f1f3f5; border-radius: 20px; padding: 8px 20px;
+            display: flex; align-items: center; width: 350px;
+        }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 14px; }
+
+        /* 紫色分類列 */
+        .category-bar { background: var(--main-purple); padding: 0 10%; display: flex; }
+        .nav-item { position: relative; padding: 15px 25px; color: white; font-weight: 500; cursor: pointer; }
+        .nav-item:hover { background: #5b4bc4; }
+        .dropdown {
+            position: absolute; top: 100%; left: 0; background: white;
+            min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            display: none; z-index: 100;
+        }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { display: block; padding: 12px 20px; color: #444; border-bottom: 1px solid #eee; font-size: 14px; }
+        .dropdown a:hover { background: #f8f8f8; color: var(--main-purple); }
+
+        /* 商品區佈局 */
+        .container { width: 85%; max-width: 1200px; margin: 30px auto; }
+        .section-title { 
+            display: flex; gap: 10px; margin-bottom: 30px; justify-content: center;
+        }
+        .tab { 
+            padding: 10px 25px; background: #f0f0f0; border: none; 
+            border-radius: 4px; cursor: pointer; font-weight: 500;
+        }
+        .tab.active { background: var(--main-green); color: white; }
+
+        /* 戴夫購風格卡片 */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .p-card { border: 1px solid #eee; border-radius: 8px; transition: 0.3s; overflow: hidden; background: white; }
+        .p-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--main-purple); }
         
-        /* 購物車小圖標計數 */
-        .cart-count { background: #ff4f8b; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; }
+        /* 彩色內框區域 */
+        .img-wrap { width: 100%; aspect-ratio: 1/1; padding: 12px; }
+        .img-wrap.blue { background: #e6f7ff; }
+        .img-wrap.purple { background: #f9f0ff; }
+        .img-wrap.dark { background: #1a1a1a; }
+        
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+
+        .p-info { padding: 15px; text-align: center; border-top: 1px solid #f0f0f0; }
+        .p-name { font-size: 15px; font-weight: 500; color: #333; margin-bottom: 8px; height: 44px; overflow: hidden; }
+        .p-price { color: #ff4d4f; font-weight: 700; font-size: 17px; }
+
+        footer { background: #f8f9fa; padding: 40px 10%; margin-top: 60px; text-align: center; border-top: 1px solid #eee; }
+        .footer-info { color: #888; font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
-
 <body>
 
-<header>
-    <div class="logo" onclick="location.reload()">🌸 櫻花小舖</div>
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="搜尋商品名稱...">
-        <button onclick="searchProduct()">搜尋</button>
+<div class="top-nav">
+    <a href="#">🏪 所有商品</a>
+    <a href="mailto:sakurashop.tw@gmail.com">✉️ 聯絡我們</a>
+    <a href="https://discord.gg/Yy4RpG4s4n" target="_blank">💬 官方 Discord</a>
+</div>
+
+<div class="header-main">
+    <div class="logo">🌸 櫻花小舖</div>
+    <div class="search-bar">
+        <input type="text" placeholder="搜尋商品名稱...">
     </div>
-</header>
-
-<div class="banner">
-    <h1>Sakura Shop</h1>
-    <p>專業數位商品代購</p>
 </div>
 
-<div class="section-title">✨ 本店精選</div>
+<nav class="category-bar">
+    <div class="nav-item">遊戲代購 ▼
+        <div class="dropdown">
+            <a href="https://discord.gg/Yy4RpG4s4n">Minecraft 正版帳號</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">VALORANT 帳號</a>
+        </div>
+    </div>
+    <div class="nav-item">遊戲代儲 ▼
+        <div class="dropdown">
+            <a href="https://discord.gg/Yy4RpG4s4n">VALORANT 台服儲值</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">VALORANT 菲律賓服</a>
+        </div>
+    </div>
+    <div class="nav-item">禮物卡 ▼
+        <div class="dropdown">
+            <a href="https://discord.gg/Yy4RpG4s4n">Steam 蒸氣卡 (NT)</a>
+            <a href="https://discord.gg/Yy4RpG4s4n">Discord Nitro 禮物</a>
+        </div>
+    </div>
+</nav>
 
-<div class="products" id="productContainer">
+<div class="container">
+    <div class="section-title">
+        <button class="tab active">本店精選</button>
+        <button class="tab">近期熱門</button>
     </div>
 
-<div class="contact">
-    <h2>📧 聯絡資訊</h2>
-    <p>Email：sakurashop.tw@gmail.com</p>
-    <p>Discord：<a href="#" target="_blank">點我加入官方 Discord</a></p>
-    <p style="color: #888; font-size: 14px; margin-top: 10px;">⚠️ 本站為數位商品自動發貨或客服手動發送。</p>
-</div>
-
-<div class="bottom-nav">
-    <a href="#" onclick="location.reload()">🏪<br>首頁</a>
-    <a href="https://discord.gg/your_invite" target="_blank">🎧<br>客服</a>
-    <a href="#" onclick="showCart()">🛒<br>購物車 <span id="cartCount" class="cart-count">0</span></a>
-</div>
-
-<script>
-    // 1. 商品資料庫 (未來可以改成從後端或 Google Sheets 抓取)
-    const productData = [
-        { id: 1, name: "Steam 蒸氣卡", price: 100, desc: "Steam Wallet 點數卡", img: "https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" },
-        { id: 2, name: "VALORANT 台服 VP", price: 170, desc: "特戰英豪 點數", img: "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg" },
-        { id: 3, name: "Nitro 禮物（月）", price: 150, desc: "Discord Nitro Monthly", img: "https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg" },
-        { id: 4, name: "Nitro 禮物（年）", price: 1450, desc: "Discord Nitro Yearly", img: "https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg" }
-    ];
-
-    let cart = JSON.parse(localStorage.getItem('sakura_cart')) || [];
-
-    // 2. 渲染商品
-    function renderProducts(data) {
-        const container = document.getElementById('productContainer');
-        container.innerHTML = data.map(p => `
-            <div class="card">
-                <img src="${p.img}" alt="${p.name}">
-                <div class="card-content">
-                    <h2>${p.name}</h2>
-                    <div class="price">NT$${p.price}</div>
-                    <p>${p.desc}</p>
-                    <button class="buy-btn" onclick="addToCart(${p.id})">加入購物車</button>
-                </div>
+    <div class="product-grid">
+        <a href="https://discord.gg/Yy4RpG4s4n" class="p-card">
+            <div class="img-wrap blue">
+                <img src="https://files.catbox.moe/5k4f7c.jpg" alt="MC">
             </div>
-        `).join('');
-    }
+            <div class="p-info">
+                <div class="p-name">Minecraft 官方正版帳號代購</div>
+                <div class="p-price">NT$ 800 起</div>
+            </div>
+        </a>
 
-    // 3. 加入購物車邏輯
-    function addToCart(id) {
-        const item = productData.find(p => p.id === id);
-        cart.push(item);
-        updateCartStatus();
-        alert(`已將 ${item.name} 加入購物車！`);
-    }
+        <a href="https://discord.gg/Yy4RpG4s4n" class="p-card">
+            <div class="img-wrap purple">
+                <img src="https://files.catbox.moe/o6o2h1.jpg" alt="Nitro">
+            </div>
+            <div class="p-info">
+                <div class="p-name">Discord Nitro 1個月/1年 贈禮</div>
+                <div class="p-price">NT$ 150 起</div>
+            </div>
+        </a>
 
-    function updateCartStatus() {
-        document.getElementById('cartCount').innerText = cart.length;
-        localStorage.setItem('sakura_cart', JSON.stringify(cart));
-    }
+        <a href="https://discord.gg/Yy4RpG4s4n" class="p-card">
+            <div class="img-wrap blue">
+                <img src="https://files.catbox.moe/u0f5v7.jpg" alt="Steam">
+            </div>
+            <div class="p-info">
+                <div class="p-name">Steam 蒸氣卡儲值 (台幣面額)</div>
+                <div class="p-price">NT$ 500 起</div>
+            </div>
+        </a>
 
-    // 4. 搜尋功能
-    function searchProduct() {
-        const term = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = productData.filter(p => p.name.toLowerCase().includes(term));
-        renderProducts(filtered);
-    }
+        <a href="https://discord.gg/Yy4RpG4s4n" class="p-card">
+            <div class="img-wrap purple">
+                <img src="https://files.catbox.moe/7v1v2n.jpg" alt="Val">
+            </div>
+            <div class="p-info">
+                <div class="p-name">VALORANT 台服 VP 點數儲值</div>
+                <div class="p-price">NT$ 170 起</div>
+            </div>
+        </a>
+    </div>
+</div>
 
-    // 5. 購物車結帳模擬
-    function showCart() {
-        if (cart.length === 0) {
-            alert("購物車是空的喔！");
-            return;
-        }
-        let total = cart.reduce((sum, item) => sum + item.price, 0);
-        let list = cart.map(item => `- ${item.name} ($${item.price})`).join('\n');
-        
-        if (confirm(`您的訂單內容：\n${list}\n\n總計：NT$${total}\n\n按下確定將聯繫客服完成付款！`)) {
-            // 這裡可以串接你的 Discord Webhook 或 結帳頁面
-            window.open(`https://discord.gg/Yy4RpG4s4n`, '_blank');
-            cart = [];
-            updateCartStatus();
-        }
-    }
-
-    // 初始化
-    renderProducts(productData);
-    updateCartStatus();
-</script>
+<footer>
+    <div class="footer-info">© 2026 櫻花小舖 Sakura Shop</div>
+    <div class="footer-info">聯絡信箱：sakurashop.tw@gmail.com</div>
+    <div class="footer-info">本站所有商品價格均以新台幣 (NT$) 計費。</div>
+</footer>
 
 </body>
 </html>
