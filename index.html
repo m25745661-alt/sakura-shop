@@ -2,276 +2,95 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>櫻花小舖 Sakura Shop | 專業代購系統</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>櫻花小舖 Sakura Shop | 專業數位代購系統</title>
     <style>
-        :root {
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --accent: #ff5f96;
-            --dark: #2d3436;
-            --gray: #f4f7f6;
-            --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans TC',sans-serif; }
-        body { background: var(--gray); color: var(--dark); line-height: 1.6; }
-
-        /* 頂部通知欄 */
-        .top-bar {
-            background: var(--dark); color: white; padding: 8px 10%;
-            display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 1px;
-        }
-
-        /* 導覽列 */
-        header {
-            background: var(--white); padding: 20px 10%;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow);
-        }
-        .logo { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
-        .admin-entry { 
-            font-size: 13px; cursor: pointer; border: 1.5px solid var(--dark);
-            padding: 5px 15px; border-radius: 20px; transition: 0.3s;
-        }
-        .admin-entry:hover { background: var(--dark); color: white; }
-
-        /* 英雄橫幅 (Banner) */
-        .hero {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            margin: 20px 10%; border-radius: 20px; padding: 40px; color: white;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .hero-text h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-        .hero-text p { opacity: 0.9; font-size: 16px; }
-
-        /* 主佈局 */
-        .main-layout { display: flex; padding: 0 10% 50px; gap: 30px; }
+        :root { --main: #6c5ce7; --accent: #ff5f96; --bg: #f8f9fa; --dark: #2d3436; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; margin: 0; }
         
-        /* 側邊分類 */
-        .sidebar { width: 250px; flex-shrink: 0; }
-        .cat-menu { background: var(--white); border-radius: 15px; padding: 20px; box-shadow: var(--shadow); position: sticky; top: 100px; }
-        .cat-item { 
-            padding: 12px 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; 
-            margin-bottom: 5px; font-weight: 500; display: flex; align-items: center; gap: 10px;
-        }
-        .cat-item:hover { background: var(--gray); color: var(--primary); }
-        .cat-item.active { background: var(--primary); color: white; }
-
-        /* 商品列表 */
-        .content { flex-grow: 1; }
-        .section-title { font-size: 22px; font-weight: 900; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        .section-title::before { content: ''; width: 6px; height: 24px; background: var(--accent); border-radius: 3px; }
+        /* 頁首與導航 */
+        .top-nav { background: #333; color: #fff; padding: 5px 10%; font-size: 12px; display: flex; justify-content: space-between; }
+        .header { background: #fff; padding: 20px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .nav-bar { background: var(--main); padding: 10px 10%; display: flex; gap: 20px; color: white; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .p-card { 
-            background: var(--white); border-radius: 15px; overflow: hidden; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-        .p-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .img-container { width: 100%; aspect-ratio: 1/1; background: #fff; padding: 15px; overflow: hidden; }
-        .img-container img { width: 100%; height: 100%; object-fit: contain; transition: 0.5s; }
-        .p-card:hover .img-container img { transform: scale(1.1); }
-        .p-info { padding: 15px; }
-        .p-name { font-size: 14px; font-weight: 700; height: 40px; overflow: hidden; color: #444; margin-bottom: 8px; }
-        .p-footer { display: flex; justify-content: space-between; align-items: center; }
-        .p-price { color: var(--accent); font-weight: 900; font-size: 18px; }
-        .buy-btn { 
-            width: 32px; height: 32px; background: var(--primary); color: white; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            font-size: 18px; cursor: pointer; transition: 0.3s;
-        }
-        .buy-btn:hover { background: var(--accent); transform: rotate(90deg); }
-
-        /* 管理員介面與彈窗 (同前次邏輯，但樣式升級) */
-        #adminPanel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--white); z-index: 5000; display: none; padding: 50px 10%; }
-        .order-table { width: 100%; border-collapse: collapse; margin-top: 30px; border-radius: 10px; overflow: hidden; }
-        .order-table th { background: var(--dark); color: white; padding: 18px; text-align: left; }
-        .order-table td { padding: 15px; border-bottom: 1px solid #eee; }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
-        .modal { background: white; width: 420px; border-radius: 25px; padding: 40px; text-align: center; }
-        .confirm-btn { background: var(--primary); color: white; width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: 900; font-size: 16px; margin-top: 20px; cursor: pointer; box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3); }
-
-        footer { background: var(--dark); color: #888; padding: 60px 10%; text-align: center; }
-
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .hero { padding: 20px; margin: 10px; }
-            .hero-text h1 { font-size: 24px; }
-        }
+        /* 輪播區模擬 */
+        .banner { background: var(--dark); height: 250px; margin: 20px 10%; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; }
+        
+        /* 商品佈局 */
+        .container { padding: 0 10% 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        .card { background: #fff; border-radius: 8px; padding: 15px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .price { color: var(--accent); font-weight: bold; font-size: 18px; margin: 10px 0; }
+        button { background: var(--main); color: #fff; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+        
+        /* 頁尾 */
+        footer { background: #eee; padding: 40px 10%; text-align: center; color: #777; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div>🚀 全自動單號生成系統</div>
-    <div>官方 LINE / Discord 客服支援中</div>
-</div>
-
+<div class="top-nav"><span>官方信箱: support@sakura.tw</span><span>服務時間: 08:00-21:00</span></div>
 <header>
-    <div class="logo">🌸 SAKURA<span>SHOP</span></div>
-    <div class="admin-entry" onclick="openAdmin()">管理員登入</div>
+    <div style="font-size: 24px; font-weight: bold; color: var(--main);">🌸 櫻花小舖</div>
+    <div onclick="alert('進入管理員模式')" style="cursor:pointer">管理員登入</div>
 </header>
+<div class="nav-bar"><span>熱門代購</span><span>遊戲儲值</span><span>影音工具</span><span>禮物卡</span></div>
 
-<section class="hero">
-    <div class="hero-text">
-        <h1>專業遊戲代購・安全快速</h1>
-        <p>下單自動同步賣家後台，免等待、免煩惱。</p>
-    </div>
-    <div style="font-size: 80px; opacity: 0.3;">🎮</div>
-</section>
+<div class="banner">【專業輪播廣告區 - 可放入特價活動圖】</div>
 
-<div class="main-layout">
-    <aside class="sidebar">
-        <div class="cat-menu">
-            <h3 style="margin-bottom: 15px; font-size: 16px;">商品分類</h3>
-            <div class="cat-item active">🔥 熱門推薦</div>
-            <div class="cat-item">💎 遊戲代購</div>
-            <div class="cat-item">💰 遊戲代儲</div>
-            <div class="cat-item">🎬 影音工具</div>
-            <div class="cat-item">📦 其他項目</div>
-        </div>
-    </aside>
-
-    <main class="content">
-        <h2 class="section-title">全店熱門商品</h2>
-        <div class="product-grid" id="productGrid"></div>
-    </main>
-</div>
-
-<div id="adminPanel">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>櫻花小舖 | 旗艦版訂單管理</h2>
-        <button onclick="closeAdmin()" style="padding: 10px 20px; border-radius: 10px; cursor:pointer;">關閉後台</button>
-    </div>
-    <table class="order-table">
-        <thead>
-            <tr>
-                <th>時間</th>
-                <th>買家標記</th>
-                <th>商品</th>
-                <th>訂單編號</th>
-                <th>狀態</th>
-            </tr>
-        </thead>
-        <tbody id="adminOrderList"></tbody>
-    </table>
-</div>
-
-<div class="modal-overlay" id="buyModal">
-    <div class="modal">
-        <div style="width: 60px; height: 60px; background: var(--gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 30px;">🎁</div>
-        <h3 id="m-name">商品名稱</h3>
-        <p id="m-price" style="color: var(--accent); font-size: 32px; margin: 10px 0; font-weight: 900;">NT$ 0</p>
-        <p style="font-size: 14px; color: #888;">確認後單號將自動同步給賣家<br>並為您複製單號</p>
-        <button class="confirm-btn" onclick="processOrder()">確認下單並生成單號</button>
-        <p onclick="closeModal()" style="margin-top: 15px; font-size: 13px; color: #bbb; cursor: pointer;">取消返回</p>
-    </div>
+<div class="container">
+    <h3 style="margin: 30px 0;">全店商品</h3>
+    <div class="grid" id="productGrid"></div>
 </div>
 
 <footer>
-    <div style="font-size: 20px; color: white; font-weight: 900; margin-bottom: 15px;">🌸 SAKURA SHOP</div>
-    <p>© 2026 櫻花小舖 | 高效代購解決方案</p>
+    <p>關於我們 | 隱私政策 | 服務條款</p>
+    <p>統一編號: 95017564 © 2026 Sakura Shop</p>
 </footer>
 
 <script>
-    // 增加至 20 個商品
     const products = [
-        { name: "Minecraft Java/基岩版", price: "NT$ 800", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "Discord Nitro 1個月 (贈禮)", price: "NT$ 150", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "Steam 1000 點數卡", price: "NT$ 1040", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "VALORANT 特戰英豪 VP", price: "NT$ 280", img: "https://files.catbox.moe/7v1v2n.jpg" },
-        { name: "Netflix 4K 高級帳號", price: "NT$ 120", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "Spotify Premium 1年", price: "NT$ 990", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "YouTube Premium 會員", price: "NT$ 90", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "Xbox Game Pass PC版", price: "NT$ 320", img: "https://files.catbox.moe/7v1v2n.jpg" },
-        { name: "Switch 任天堂線上會員", price: "NT$ 150", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "Garena 貝殼幣 1000點", price: "NT$ 1050", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "PSN 點數卡 500元", price: "NT$ 520", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "Roblox 1000 Robux", price: "NT$ 350", img: "https://files.catbox.moe/7v1v2n.jpg" },
-        { name: "Apex 英雄 1000 硬幣", price: "NT$ 310", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "Google Play 禮品卡 500", price: "NT$ 510", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "Apple Gift Card 500", price: "NT$ 515", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "League of Legends 造型代購", price: "NT$ 250", img: "https://files.catbox.moe/7v1v2n.jpg" },
-        { name: "ChatGPT Plus 代付", price: "NT$ 750", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "Midjourney 專業版代儲", price: "NT$ 980", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "Origin 點數卡代購", price: "NT$ 400", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "原神/崩鐵 創世結晶代儲", price: "NT$ 3000", img: "https://files.catbox.moe/7v1v2n.jpg" }
+        { name: "Minecraft 正版帳號", price: "NT$ 800" },
+        { name: "Discord Nitro 贈禮", price: "NT$ 150" },
+        { name: "Steam 1000 點數", price: "NT$ 1040" },
+        { name: "Valorant 1000VP", price: "NT$ 280" },
+        { name: "Netflix 高級帳號", price: "NT$ 120" },
+        { name: "Spotify 年費", price: "NT$ 990" },
+        { name: "YouTube Premium", price: "NT$ 90" },
+        { name: "Xbox Game Pass", price: "NT$ 320" },
+        { name: "Switch 會員卡", price: "NT$ 150" },
+        { name: "貝殼幣 1000點", price: "NT$ 1050" },
+        { name: "PSN 點數卡", price: "NT$ 520" },
+        { name: "Roblox 1000 Robux", price: "NT$ 350" },
+        { name: "Apex 硬幣 1000", price: "NT$ 310" },
+        { name: "Google Play 500", price: "NT$ 510" },
+        { name: "Apple Gift Card", price: "NT$ 515" },
+        { name: "LoL 造型代購", price: "NT$ 250" },
+        { name: "ChatGPT Plus", price: "NT$ 750" },
+        { name: "Midjourney 訂閱", price: "NT$ 980" },
+        { name: "Origin 點數卡", price: "NT$ 400" },
+        { name: "崩鐵/原神 儲值", price: "NT$ 3000" }
     ];
 
-    let orders = JSON.parse(localStorage.getItem('sakura_orders')) || [];
-
-    function render() {
-        document.getElementById('productGrid').innerHTML = products.map((p, idx) => `
-            <div class="p-card">
-                <div class="img-container"><img src="${p.img}"></div>
-                <div class="p-info">
-                    <div class="p-name">${p.name}</div>
-                    <div class="p-footer">
-                        <div class="p-price">${p.price}</div>
-                        <div class="buy-btn" onclick="openBuyModal(${idx})">+</div>
-                    </div>
-                </div>
+    function renderProducts() {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = products.map((p, i) => `
+            <div class="card">
+                <div style="height:100px; background:#f0f0f0; margin-bottom:10px; display:flex; align-items:center; justify-content:center;">商品圖</div>
+                <div>${p.name}</div>
+                <div class="price">${p.price}</div>
+                <button onclick="buy('${p.name}')">立即購買</button>
             </div>
         `).join('');
     }
 
-    function openBuyModal(i) {
-        document.getElementById('m-name').innerText = products[i].name;
-        document.getElementById('m-price').innerText = products[i].price;
-        document.getElementById('buyModal').style.display = 'flex';
+    function buy(name) {
+        const orderId = "SAKURA-" + Math.floor(100000 + Math.random() * 900000);
+        navigator.clipboard.writeText(orderId);
+        alert("下單成功！訂單編號 " + orderId + " 已自動複製。\n請前往 Discord 客服貼上編號完成結帳。");
     }
 
-    function closeModal() { document.getElementById('buyModal').style.display = 'none'; }
-
-    function processOrder() {
-        const orderID = "#SK-" + Math.floor(100000 + Math.random() * 899999);
-        const buyer = "User_" + Math.floor(1000 + Math.random() * 8999);
-        
-        const newOrder = {
-            time: new Date().toLocaleString(),
-            user: buyer,
-            id: orderID,
-            product: document.getElementById('m-name').innerText,
-            status: "處理中"
-        };
-
-        orders.unshift(newOrder);
-        localStorage.setItem('sakura_orders', JSON.stringify(orders));
-        navigator.clipboard.writeText(orderID);
-        
-        alert(`單號 ${orderID} 已複製！\n請前往 Discord 客服貼上此編號。`);
-        closeModal();
-        window.open("https://discord.gg/Yy4RpG4s4n", "_blank");
-    }
-
-    function openAdmin() {
-        if(prompt("請輸入管理密碼") === "sakura888") {
-            updateTable();
-            document.getElementById('adminPanel').style.display = 'block';
-        } else { alert("密碼錯誤"); }
-    }
-
-    function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
-
-    function updateTable() {
-        document.getElementById('adminOrderList').innerHTML = orders.map(o => `
-            <tr>
-                <td>${o.time}</td>
-                <td style="color:var(--primary); font-weight:700;">${o.user}</td>
-                <td style="font-weight:700;">${o.product}</td>
-                <td style="font-weight:900; color:var(--accent);">${o.id}</td>
-                <td><span style="background:#eee; padding:3px 8px; border-radius:4px; font-size:12px;">${o.status}</span></td>
-            </tr>
-        `).join('') || '<tr><td colspan="5">暫無數據</td></tr>';
-    }
-
-    render();
+    renderProducts();
 </script>
 </body>
 </html>
