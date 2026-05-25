@@ -1,339 +1,143 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>櫻花小舖 Sakura Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>櫻花小舖 Sakura Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 保留你原本的 CSS，並修正圖片失效問題 */
+        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans TC',sans-serif; }
+        body{ background:#f4f4f4; color:#222; padding-bottom: 80px; }
+        header{ background:white; padding:18px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+        .logo{ font-size:24px; font-weight:700; color:#ff5f96; cursor:pointer; }
+        .search-box{ display:flex; width:50%; }
+        .search-box input{ width:100%; padding:10px; border:1px solid #ddd; outline:none; border-radius:10px 0 0 10px; }
+        .search-box button{ padding:10px 18px; border:none; background:#ff78a8; color:white; border-radius:0 10px 10px 0; cursor:pointer; }
+        
+        .banner{ width:92%; margin:20px auto; height:180px; border-radius:24px; background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; }
+        .section-title{ background:#6fd46f; color:white; text-align:center; padding:12px; margin:20px auto; width:92%; border-radius:12px; font-size:20px; }
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+        .products{ width:92%; margin:auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:15px; }
+        .card{ background:white; border-radius:18px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.05); transition:0.3s; }
+        .card:hover{ transform:translateY(-5px); }
+        .card img{ width:100%; height:150px; object-fit:cover; background: #eee; }
+        .card-content{ padding:15px; }
+        .card h2{ font-size:18px; margin-bottom:5px; }
+        .price{ color:#ff4f8b; font-size:22px; font-weight:700; margin:5px 0; }
+        .buy-btn{ width:100%; padding:12px; border:none; background:#8ea7ff; color:white; border-radius:10px; font-size:16px; cursor:pointer; transition: 0.2s; }
+        .buy-btn:active { background: #6b84ff; transform: scale(0.95); }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Noto Sans TC',sans-serif;
-}
-
-body{
-    background:#f4f4f4;
-    color:#222;
-}
-
-header{
-    background:white;
-    padding:18px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:100;
-    box-shadow:0 2px 10px rgba(0,0,0,0.06);
-}
-
-.logo{
-    font-size:32px;
-    font-weight:700;
-    color:#ff5f96;
-}
-
-.search-box{
-    display:flex;
-    width:55%;
-}
-
-.search-box input{
-    width:100%;
-    padding:12px;
-    border:1px solid #ddd;
-    outline:none;
-    border-radius:10px 0 0 10px;
-}
-
-.search-box button{
-    padding:12px 18px;
-    border:none;
-    background:#ff78a8;
-    color:white;
-    border-radius:0 10px 10px 0;
-}
-
-.banner{
-    width:92%;
-    margin:20px auto;
-    height:220px;
-    border-radius:24px;
-    background:
-    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
-    url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=1200&auto=format&fit=crop');
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    text-align:center;
-}
-
-.banner h1{
-    font-size:42px;
-    margin-bottom:12px;
-}
-
-.banner p{
-    font-size:18px;
-}
-
-.section-title{
-    background:#6fd46f;
-    color:white;
-    text-align:center;
-    padding:16px;
-    margin:30px auto;
-    width:92%;
-    border-radius:12px;
-    font-size:28px;
-}
-
-.products{
-    width:92%;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:20px;
-    margin-bottom:40px;
-}
-
-.card{
-    background:white;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 5px 18px rgba(0,0,0,0.08);
-    transition:0.25s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-}
-
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-
-.card-content{
-    padding:18px;
-}
-
-.card h2{
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-.price{
-    color:#ff4f8b;
-    font-size:28px;
-    font-weight:700;
-    margin:10px 0;
-}
-
-.buy-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#8ea7ff;
-    color:white;
-    border-radius:12px;
-    font-size:18px;
-    margin-top:10px;
-}
-
-.contact{
-    width:92%;
-    margin:30px auto;
-    background:white;
-    padding:28px;
-    border-radius:20px;
-    box-shadow:0 5px 18px rgba(0,0,0,0.08);
-}
-
-.contact h2{
-    color:#ff5f96;
-    margin-bottom:16px;
-}
-
-.contact p{
-    margin:10px 0;
-    color:#555;
-}
-
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:white;
-    display:flex;
-    justify-content:space-around;
-    padding:14px 0;
-    box-shadow:0 -3px 12px rgba(0,0,0,0.08);
-}
-
-.bottom-nav a{
-    text-decoration:none;
-    color:#444;
-    font-size:15px;
-    text-align:center;
-}
-
-footer{
-    text-align:center;
-    padding:30px;
-    color:#777;
-    margin-bottom:80px;
-}
-</style>
+        .contact{ width:92%; margin:30px auto; background:white; padding:20px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.05); }
+        .bottom-nav{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:12px 0; box-shadow:0 -3px 10px rgba(0,0,0,0.05); }
+        .bottom-nav a { text-decoration:none; color:#444; font-size:13px; text-align:center; }
+        
+        /* 購物車小圖標計數 */
+        .cart-count { background: #ff4f8b; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; }
+    </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">🌸 櫻花小舖</div>
-
+    <div class="logo" onclick="location.reload()">🌸 櫻花小舖</div>
     <div class="search-box">
-        <input type="text" placeholder="搜尋商品">
-        <button>搜尋</button>
+        <input type="text" id="searchInput" placeholder="搜尋商品名稱...">
+        <button onclick="searchProduct()">搜尋</button>
     </div>
 </header>
 
 <div class="banner">
     <h1>Sakura Shop</h1>
-    <p>Steam 蒸氣卡｜VALORANT 台服｜Discord Nitro</p>
+    <p>專業數位商品代購</p>
 </div>
 
-<div class="section-title">
-    本店精選
-</div>
+<div class="section-title">✨ 本店精選</div>
 
-<div class="products">
-
-    <!-- Steam -->
-    <div class="card">
-        <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
-
-        <div class="card-content">
-            <h2>Steam 蒸氣卡</h2>
-
-            <div class="price">
-                NT$100 起
-            </div>
-
-            <p>Steam Wallet 點數卡</p>
-
-            <button class="buy-btn">
-                加入購物車
-            </button>
-        </div>
+<div class="products" id="productContainer">
     </div>
-
-    <!-- Valorant -->
-    <div class="card">
-        <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg">
-
-        <div class="card-content">
-            <h2>VALORANT 台服</h2>
-
-            <div class="price">
-                NT$170 起
-            </div>
-
-            <p>特戰英豪 VP 點數</p>
-
-            <button class="buy-btn">
-                加入購物車
-            </button>
-        </div>
-    </div>
-
-    <!-- Nitro Month -->
-    <div class="card">
-        <img src="https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg">
-
-        <div class="card-content">
-            <h2>Nitro 禮物（月）</h2>
-
-            <div class="price">
-                NT$150
-            </div>
-
-            <p>Discord Nitro Monthly Gift</p>
-
-            <button class="buy-btn">
-                加入購物車
-            </button>
-        </div>
-    </div>
-
-    <!-- Nitro Year -->
-    <div class="card">
-        <img src="https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg">
-
-        <div class="card-content">
-            <h2>Nitro 禮物（年）</h2>
-
-            <div class="price">
-                NT$1450
-            </div>
-
-            <p>Discord Nitro Yearly Gift</p>
-
-            <button class="buy-btn">
-                加入購物車
-            </button>
-        </div>
-    </div>
-
-</div>
 
 <div class="contact">
-
     <h2>📧 聯絡資訊</h2>
-
-    <p>Email：yourmail@example.com</p>
-
-    <p>
-        Discord：
-        <a href="https://discord.gg/你的邀請碼" target="_blank">
-            點我加入官方 Discord
-        </a>
-    </p>
-
-    <p>
-        本站商品皆為數位商品，
-        付款後將由客服協助發送。
-    </p>
-
+    <p>Email：support@sakura.tw</p>
+    <p>Discord：<a href="#" target="_blank">點我加入官方 Discord</a></p>
+    <p style="color: #888; font-size: 14px; margin-top: 10px;">⚠️ 本站為數位商品自動發貨或客服手動發送。</p>
 </div>
-
-<footer>
-    © 2026 櫻花小舖 Sakura Shop
-</footer>
 
 <div class="bottom-nav">
-
-    <a href="#">
-        🏪<br>
-        查看商品
-    </a>
-
-    <a href="https://discord.gg/你的邀請碼" target="_blank">
-        🎧<br>
-        聯絡客服
-    </a>
-
+    <a href="#" onclick="location.reload()">🏪<br>首頁</a>
+    <a href="https://discord.gg/your_invite" target="_blank">🎧<br>客服</a>
+    <a href="#" onclick="showCart()">🛒<br>購物車 <span id="cartCount" class="cart-count">0</span></a>
 </div>
+
+<script>
+    // 1. 商品資料庫 (未來可以改成從後端或 Google Sheets 抓取)
+    const productData = [
+        { id: 1, name: "Steam 蒸氣卡", price: 100, desc: "Steam Wallet 點數卡", img: "https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" },
+        { id: 2, name: "VALORANT 台服 VP", price: 170, desc: "特戰英豪 點數", img: "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt5e57f0c3f9e0c11c/valorant-key-art.jpg" },
+        { id: 3, name: "Nitro 禮物（月）", price: 150, desc: "Discord Nitro Monthly", img: "https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg" },
+        { id: 4, name: "Nitro 禮物（年）", price: 1450, desc: "Discord Nitro Yearly", img: "https://wallpapers.com/images/featured/discord-logo-4f1f2m8l8j4g4y9r.jpg" }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('sakura_cart')) || [];
+
+    // 2. 渲染商品
+    function renderProducts(data) {
+        const container = document.getElementById('productContainer');
+        container.innerHTML = data.map(p => `
+            <div class="card">
+                <img src="${p.img}" alt="${p.name}">
+                <div class="card-content">
+                    <h2>${p.name}</h2>
+                    <div class="price">NT$${p.price}</div>
+                    <p>${p.desc}</p>
+                    <button class="buy-btn" onclick="addToCart(${p.id})">加入購物車</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 3. 加入購物車邏輯
+    function addToCart(id) {
+        const item = productData.find(p => p.id === id);
+        cart.push(item);
+        updateCartStatus();
+        alert(`已將 ${item.name} 加入購物車！`);
+    }
+
+    function updateCartStatus() {
+        document.getElementById('cartCount').innerText = cart.length;
+        localStorage.setItem('sakura_cart', JSON.stringify(cart));
+    }
+
+    // 4. 搜尋功能
+    function searchProduct() {
+        const term = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = productData.filter(p => p.name.toLowerCase().includes(term));
+        renderProducts(filtered);
+    }
+
+    // 5. 購物車結帳模擬
+    function showCart() {
+        if (cart.length === 0) {
+            alert("購物車是空的喔！");
+            return;
+        }
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+        let list = cart.map(item => `- ${item.name} ($${item.price})`).join('\n');
+        
+        if (confirm(`您的訂單內容：\n${list}\n\n總計：NT$${total}\n\n按下確定將聯繫客服完成付款！`)) {
+            // 這裡可以串接你的 Discord Webhook 或 結帳頁面
+            window.open(`https://discord.gg/your_invite`, '_blank');
+            cart = [];
+            updateCartStatus();
+        }
+    }
+
+    // 初始化
+    renderProducts(productData);
+    updateCartStatus();
+</script>
 
 </body>
 </html>
