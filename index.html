@@ -2,223 +2,154 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>櫻花小舖 Sakura Shop | Discord 登入系統</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>櫻花小舖 | 會員與訂單系統</title>
     <style>
-        :root {
-            --primary-purple: #6c5ce7;
-            --hover-purple: #5b4bc4;
-            --main-pink: #ff5f96;
-            --bg-light: #f9f9fb;
-            --text-dark: #2d3436;
-            --discord: #5865F2;
-        }
-
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans TC',sans-serif; }
-        body { background: var(--bg-light); color: var(--text-dark); }
-
-        /* 頂部快速選單 - 整合登入狀態 */
-        .utility-nav {
-            background: #fff; padding: 10px 10%; display: flex; justify-content: space-between;
-            font-size: 13px; color: #636e72; border-bottom: 1px solid #eee;
-        }
-        .user-zone { display: flex; gap: 15px; align-items: center; }
-        .login-btn { background: var(--discord); color: white; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-weight: 700; }
-        .admin-btn { background: #2d3436; color: white; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
-
-        .header-main { background: #fff; padding: 20px 10%; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 30px; font-weight: 900; }
-        .logo span { color: var(--main-pink); }
-
-        .nav-bar { background: var(--primary-purple); padding: 0 10%; display: flex; position: sticky; top: 0; z-index: 1000; }
-        .nav-item { padding: 15px 25px; color: white; font-weight: 500; cursor: pointer; }
-        .nav-item:hover { background: var(--hover-purple); }
-
-        .main-container { width: 85%; max-width: 1200px; margin: 30px auto; display: flex; gap: 30px; }
+        /* 繼承您截圖中的紫色導覽列與白色卡片排版 */
+        :root { --main-purple: #6c5ce7; --accent-pink: #ff5f96; --bg: #f8f9fa; }
+        body { background: var(--bg); font-family: sans-serif; margin: 0; }
         
-        /* 商品卡片優化 */
-        .products-wrap { flex-grow: 1; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; }
-        .p-card { background: white; border-radius: 10px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        .p-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .img-box { width: 100%; aspect-ratio: 1/1; padding: 15px; display: flex; align-items: center; justify-content: center; }
-        .img-box img { width: 100%; height: 100%; object-fit: contain; }
-        .p-info { padding: 15px; text-align: center; }
-        .p-price { font-size: 18px; color: #ff4d4f; font-weight: 700; }
-
-        /* 後台管理面板 (隱藏) */
-        #adminPanel {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 3000; display: none; padding: 40px 10%;
-            overflow-y: auto;
-        }
-        .order-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .order-table th, .order-table td { border: 1px solid #eee; padding: 15px; text-align: left; }
-        .order-table th { background: #f8f9fa; }
-
-        /* 彈窗 */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000;
-        }
-        .modal { background: white; width: 450px; border-radius: 12px; padding: 30px; text-align: center; }
-        .btn-confirm { background: var(--primary-purple); color: white; padding: 12px; border: none; border-radius: 5px; width: 100%; margin-top: 20px; cursor: pointer; font-weight: 700; }
-
-        footer { text-align: center; padding: 40px; color: #888; font-size: 13px; }
+        .header { background: #fff; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+        .nav-bar { background: var(--main-purple); padding: 10px 10%; display: flex; gap: 20px; color: white; }
+        
+        .container { padding: 30px 10%; }
+        .user-panel { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border-left: 5px solid var(--accent-pink); }
+        
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--main-purple); }
+        .card img { width: 100%; border-radius: 8px; }
+        .price { color: var(--accent-pink); font-weight: bold; font-size: 1.2em; margin: 10px 0; }
+        
+        /* 隱藏的賣家後台 */
+        #adminView { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 999; display: none; padding: 50px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
     </style>
 </head>
 <body>
 
-<div class="utility-nav">
-    <div style="color: var(--main-pink); font-weight: 700;">🕒 營業時間：平日 08:00-21:00 / 工作日 17:00-21:00</div>
-    <div class="user-zone" id="userZone">
-        <span onclick="toggleAdmin()" class="admin-btn">管理後台</span>
-        <span onclick="simulateLogin()" class="login-btn">Discord 登入註冊</span>
+<div class="header">
+    <h2 style="color:var(--main-purple)">🌸 櫻花小舖</h2>
+    <div id="authZone">
+        <button onclick="loginWithDiscord()" style="background:#5865F2; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Discord 授權登入</button>
     </div>
 </div>
 
-<header class="header-main">
-    <div class="logo">🌸 櫻花<span>小舖</span></div>
-    <div style="font-size: 14px; color: #888;">📩 sakurashop.tw@gmail.com</div>
-</header>
-
-<nav class="nav-bar">
-    <div class="nav-item">遊戲代購</div>
-    <div class="nav-item">遊戲代儲</div>
-    <div class="nav-item">影音帳號</div>
-</nav>
-
-<div class="main-container">
-    <main class="products-wrap">
-        <h2 style="margin-bottom: 20px;">本店精選商品</h2>
-        <div class="product-grid" id="productGrid"></div>
-    </main>
+<div class="nav-bar">
+    <span>熱門代購</span><span>遊戲儲值</span><span>影音工具</span>
+    <span onclick="enterAdmin()" style="margin-left:auto; cursor:pointer; font-size:12px; opacity:0.7;">賣家登入</span>
 </div>
 
-<div id="adminPanel">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>櫻花小舖 - 賣家管理後台</h2>
-        <button onclick="toggleAdmin()" style="padding: 10px 20px; cursor: pointer;">返回商店</button>
+<div class="container">
+    <div id="personalCenter" style="display:none;" class="user-panel">
+        <h3>👤 歡迎回來，<span id="displayName"></span></h3>
+        <p style="font-size:14px; color:#666;">以下是您的訂單紀錄，提供給 Discord 客服核對使用：</p>
+        <div id="orderHistory" style="margin-top:10px;">載入中...</div>
     </div>
-    <table class="order-table">
-        <thead>
-            <tr>
-                <th>訂單時間</th>
-                <th>買家 Discord</th>
-                <th>訂單編號</th>
-                <th>商品名稱</th>
-                <th>狀態</th>
-            </tr>
-        </thead>
-        <tbody id="adminOrderList">
-            </tbody>
+
+    <div class="product-grid" id="products"></div>
+</div>
+
+<div id="adminView">
+    <div style="display:flex; justify-content:space-between">
+        <h2>賣家訂單管理後台</h2>
+        <button onclick="document.getElementById('adminView').style.display='none'">退出</button>
+    </div>
+    <table id="adminTable">
+        <thead><tr><th>時間</th><th>Discord 買家</th><th>商品</th><th>訂單編號</th></tr></thead>
+        <tbody id="adminList"></tbody>
     </table>
 </div>
 
-<div class="modal-overlay" id="buyModal">
-    <div class="modal">
-        <h3 id="m-name">商品名稱</h3>
-        <p id="m-price" style="color: #ff4d4f; font-size: 24px; margin: 15px 0;">NT$ 0</p>
-        <p style="font-size: 14px; color: #666;">點擊確認後將自動同步至賣家後台</p>
-        <button class="btn-confirm" onclick="processOrder()">確認下單並生成編號</button>
-        <button onclick="closeModal()" style="background:none; border:none; color:#999; margin-top:15px; cursor:pointer;">取消</button>
-    </div>
-</div>
-
-<footer>
-    © 2026 櫻花小舖 Sakura Shop | 串接 Discord OAuth2 授權
-</footer>
-
 <script>
-    const products = [
-        { name: "Minecraft 官方代購", price: "NT$ 800", img: "https://files.catbox.moe/5k4f7c.jpg" },
-        { name: "Discord Nitro 贈禮連結", price: "NT$ 150", img: "https://files.catbox.moe/o6o2h1.jpg" },
-        { name: "Steam 1000 點數儲值卡", price: "NT$ 1040", img: "https://files.catbox.moe/u0f5v7.jpg" },
-        { name: "VALORANT 特戰英豪 VP", price: "NT$ 280", img: "https://files.catbox.moe/7v1v2n.jpg" }
-    ];
+    const API_URL = "https://你的worker網址.workers.dev";
+    let currentUser = localStorage.getItem('sakura_user');
 
-    let currentUser = null;
-    let orders = []; // 模擬後台資料庫
+    // 初始化介面
+    function init() {
+        if(currentUser) {
+            document.getElementById('personalCenter').style.display = 'block';
+            document.getElementById('displayName').innerText = currentUser;
+            fetchHistory();
+        }
+        renderProducts();
+    }
+
+    // 模擬 Discord 登入 (正式環境應串接 OAuth2)
+    function loginWithDiscord() {
+        const name = prompt("請輸入您的 Discord 暱稱 (例如 User#1234)：");
+        if(name) {
+            localStorage.setItem('sakura_user', name);
+            location.reload();
+        }
+    }
+
+    // 下單並存入雲端
+    async function createOrder(pName, pPrice) {
+        if(!currentUser) return alert("請先登入 Discord 以記錄訂單！");
+        
+        const orderNo = "#SAKURA-" + Math.floor(10000 + Math.random() * 90000);
+        const data = {
+            user: currentUser,
+            product: pName,
+            price: pPrice,
+            orderNo: orderNo,
+            time: new Date().toLocaleString()
+        };
+
+        await fetch(`${API_URL}/api/order`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+
+        alert("訂單已生成！請至個人帳戶查看編號，並前往 Discord 聯繫客服。");
+        fetchHistory();
+    }
+
+    // 獲取買家歷史紀錄
+    async function fetchHistory() {
+        const res = await fetch(`${API_URL}/api/my-history?user=${currentUser}`);
+        const data = await res.json();
+        const html = data.map(o => `
+            <div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between">
+                <span><b>${o.orderNo}</b> - ${o.product}</span>
+                <span style="color:#999; font-size:12px;">${o.time}</span>
+            </div>
+        `).join('');
+        document.getElementById('orderHistory').innerHTML = html || "尚無訂單紀錄";
+    }
+
+    // 進入賣家後台
+    async function enterAdmin() {
+        const pwd = prompt("請輸入賣家管理密碼：");
+        const res = await fetch(`${API_URL}/api/admin/all-orders?pwd=${pwd}`);
+        if(res.ok) {
+            const data = await res.json();
+            document.getElementById('adminView').style.display = 'block';
+            document.getElementById('adminList').innerHTML = data.map(o => `
+                <tr><td>${o.time}</td><td>${o.user}</td><td>${o.product}</td><td><b>${o.orderNo}</b></td></tr>
+            `).join('');
+        } else {
+            alert("密碼錯誤，拒絕訪問。");
+        }
+    }
 
     function renderProducts() {
-        document.getElementById('productGrid').innerHTML = products.map((p, idx) => `
-            <div class="p-card" onclick="openBuyModal(${idx})">
-                <div class="img-box"><img src="${p.img}"></div>
-                <div class="p-info">
-                    <div style="font-weight:600; font-size:14px; margin-bottom:10px;">${p.name}</div>
-                    <div class="p-price">${p.price}</div>
-                </div>
+        const items = [
+            { name: "Minecraft 官方帳號", price: "NT$ 800", img: "https://files.catbox.moe/5k4f7c.jpg" },
+            { name: "VALORANT 代儲 1000VP", price: "NT$ 280", img: "https://files.catbox.moe/7v1v2n.jpg" }
+        ];
+        document.getElementById('products').innerHTML = items.map(i => `
+            <div class="card" onclick="createOrder('${i.name}', '${i.price}')">
+                <img src="${i.img}">
+                <h4>${i.name}</h4>
+                <div class="price">${i.price}</div>
+                <button style="width:100%; padding:8px; background:var(--main-purple); color:white; border:none; border-radius:5px; cursor:pointer;">立即購買</button>
             </div>
         `).join('');
     }
 
-    // 模擬 Discord 登入
-    function simulateLogin() {
-        currentUser = "SakuraUser#" + Math.floor(1000 + Math.random() * 9000);
-        document.getElementById('userZone').innerHTML = `
-            <span onclick="toggleAdmin()" class="admin-btn">管理後台</span>
-            <span style="font-weight:700; color:var(--primary-purple);">👤 ${currentUser}</span>
-        `;
-        alert("已透過 Discord 成功登入！");
-    }
-
-    function openBuyModal(idx) {
-        if (!currentUser) {
-            alert("請先點擊上方 Discord 登入註冊！");
-            return;
-        }
-        const p = products[idx];
-        document.getElementById('m-name').innerText = p.name;
-        document.getElementById('m-price').innerText = p.price;
-        document.getElementById('buyModal').style.display = 'flex';
-    }
-
-    function closeModal() { document.getElementById('buyModal').style.display = 'none'; }
-
-    // 核心功能：下單並傳送到後台
-    function processOrder() {
-        const orderID = "#SAKURA-" + Math.floor(10000 + Math.random() * 90000);
-        const orderData = {
-            time: new Date().toLocaleString(),
-            user: currentUser,
-            id: orderID,
-            product: document.getElementById('m-name').innerText,
-            status: "等待處理"
-        };
-
-        // 存入後台資料列表
-        orders.unshift(orderData);
-        updateAdminTable();
-
-        // 複製給買家
-        navigator.clipboard.writeText(`我的訂單編號是：${orderID}\n商品：${orderData.product}`);
-        
-        alert(`下單成功！\n您的編號：${orderID}\n賣家後台已同步資訊。請至 Discord 貼上編號。`);
-        closeModal();
-        window.open("https://discord.gg/Yy4RpG4s4n", "_blank");
-    }
-
-    // 更新管理員表格
-    function updateAdminTable() {
-        const list = document.getElementById('adminOrderList');
-        list.innerHTML = orders.map(o => `
-            <tr>
-                <td>${o.time}</td>
-                <td style="color:var(--discord); font-weight:700;">${o.user}</td>
-                <td style="font-weight:900;">${o.id}</td>
-                <td>${o.product}</td>
-                <td><span style="color:orange;">● ${o.status}</span></td>
-            </tr>
-        `).join('');
-    }
-
-    function toggleAdmin() {
-        const panel = document.getElementById('adminPanel');
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-    }
-
-    renderProducts();
+    init();
 </script>
 </body>
 </html>
